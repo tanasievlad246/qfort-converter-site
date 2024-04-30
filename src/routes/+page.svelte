@@ -18,6 +18,7 @@
     import { message } from '@tauri-apps/api/dialog';
     import type { ExtractedAssemblyListData } from '$lib/types';
     import { getCurrentTime } from '$lib/util/getCurrentTime';
+    import { onMount } from 'svelte';
 
     let _cutOptimisationFile: File | null = $store.cutOptimisationFile;
     let _assemblyListFile: File | null = $store.assemblyListFile;
@@ -29,7 +30,6 @@
 
     let reportData: ReportData = {};
     let showSaveButton = false;
-    $: console.log(showSaveButton);
 
     subscribe((val) => {
         _cutOptimisationFile = val.cutOptimisationFile;
@@ -184,7 +184,7 @@
     };
 </script>
 
-<div class="flex flex-col justify-center h-full items-center gap-6">
+<div class="flex flex-col justify-center h-screen items-center gap-6">
     <img src="/logo.svg" alt="logo" class="w-48" />
     <p class="font-bold text-xl">Cut Optimisation & Assembly List Aggregator</p>
     <div class="flex flex-row gap-4">
