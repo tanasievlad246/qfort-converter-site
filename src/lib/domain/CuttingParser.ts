@@ -1,5 +1,4 @@
 import type { CuttingRow } from '../util/extractCuttingTables';
-import { message } from '@tauri-apps/api/dialog';
 import { store } from '../store';
 
 interface ICuttingParser {
@@ -39,11 +38,11 @@ export class CuttingParser implements ICuttingParser {
 
     public parse() {
         if (!this.data) {
-            // message('Could not parse data', {
-            //     type: 'error',
-            //     title: 'Error parsing data',
-            // });
-            console.error('Could not parse data');
+            store.update((store) => {
+                store.errorMessage = 'Could not parse data';
+                store.showSaveButton = false;
+                return store;
+            });
             return;
         }
 
@@ -85,11 +84,6 @@ export class CuttingParser implements ICuttingParser {
                         store.showSaveButton = false;
                         return store;
                     });
-                    // await message(errorMessage, {
-                    //     type: 'error',
-                    //     title: 'Error extracting profile info',
-                    // });
-                    console.error(errorMessage);
                     return;
                 }
 

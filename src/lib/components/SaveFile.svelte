@@ -41,8 +41,6 @@
         resetStoreValues();
         data = {};
     };
-
-    $: console.log(data);
 </script>
 
 {#if Object.keys(data).length > 0}

@@ -15,7 +15,6 @@
     } from '$lib/util/extractCuttingTables';
     import { subscribe, store } from '$lib/store';
     import SelectAssemblyList from '$lib/components/SelectAssemblyList.svelte';
-    import { message } from '@tauri-apps/api/dialog';
     import type { ExtractedAssemblyListData } from '$lib/types';
     import { getCurrentTime } from '$lib/util/getCurrentTime';
 
@@ -33,13 +32,16 @@
         _cutOptimisationFile = val.cutOptimisationFile;
         _assemblyListFile = val.assemblyListFile;
 
-        if (
-            val.errorMessage &&
-            (!val.assemblyListFile || !val.cutOptimisationFile)
-        ) {
-            // message(val.errorMessage, { title: 'Error!', type: 'error' });
-            console.error(val.errorMessage);
-        }
+        // if (
+        //     val.errorMessage &&
+        //     (!val.assemblyListFile || !val.cutOptimisationFile)
+        // ) {
+        //     message(val.errorMessage, { title: 'Error!', type: 'error' });
+        //     store.update((val) => {
+        //         val.errorMessage = '';
+        //         return val;
+        //     });
+        // }
     });
 
     const processAssemblyList = (): ExtractedAssemblyListData | null => {
@@ -72,7 +74,11 @@
                 positionQty,
             };
         } catch (error: any) {
-            $store.errorMessage = error.message;
+            store.update((val) => {
+                val.errorMessage = error.message;
+                val.showSaveButton = false;
+                return val;
+            });
             return null;
         }
     };
@@ -82,7 +88,11 @@
             const data = $store.cutOptimisationData;
 
             if (!data) {
-                message('No file selected', { title: 'Error!', type: 'error' });
+                store.update((val) => {
+                    val.errorMessage = 'No file selected';
+                    val.showSaveButton = false;
+                    return val;
+                });
                 processing = false;
                 return;
             }
@@ -94,7 +104,11 @@
 
             return cuttingTables;
         } catch (error: any) {
-            $store.errorMessage = error.message;
+            store.update((val) => {
+                val.errorMessage = error.message;
+                val.showSaveButton = false;
+                return val;
+            });
             reportData = {};
         }
     };
@@ -117,7 +131,6 @@
             cuttingParser.parse();
             const outputData = cuttingParser.getParsedData();
             const cuttingProcessess = createCuttingProcesses(outputData);
-            console.log(cuttingProcessess);
             ReportBuilder.buildReport(cuttingProcessess, assemblyListData);
 
             const listOfPositions = ReportBuilder.getListOfPositions();
@@ -164,9 +177,17 @@
 
             processing = false;
             reportData = reportData;
-            setShowSaveButton(true);
+            if ($store.errorMessage) {
+                setShowSaveButton(false);
+            } else {
+                setShowSaveButton(true);
+            }
         } catch (error: any) {
-            await message(error.message, { title: 'Error!', type: 'error' });
+            store.update((val) => {
+                val.errorMessage = error.message;
+                val.showSaveButton = false;
+                return val;
+            });
             reportData = {};
             processing = false;
             setShowSaveButton(false);

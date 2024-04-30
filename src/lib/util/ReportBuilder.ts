@@ -35,8 +35,6 @@ class ReportBuilder {
         this.calculateTotalProjectLength();
         const rows: ReportCuts[] = [];
 
-        console.log(this);
-
         for (const process of cuttingProcesses) {
             let wastage = process.getWastage();
 

@@ -9,7 +9,7 @@
   },
   "package": {
     "productName": "qfort-converter",
-    "version": "1.0.4"
+    "version": "1.0.5"
   },
   "tauri": {
     "allowlist": {
@@ -27,12 +27,8 @@
         "exists": true
       },
       "dialog": {
-        "all": false,
-        "ask": false,
-        "confirm": false,
-        "message": true,
-        "open": false,
-        "save": false
+        "all": true,
+        "message": true
       }
     },
     "bundle": {
@@ -78,7 +74,7 @@
       {
         "fullscreen": false,
         "height": 350,
-        "resizable": false,
+        "resizable": true,
         "title": "QFort profile cut aggregator",
         "width": 720
       }

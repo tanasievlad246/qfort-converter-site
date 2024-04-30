@@ -21,6 +21,7 @@
                     (val = {
                         ...val,
                         errorMessage: (val.errorMessage = 'No file selected'),
+                        showSaveButton: false,
                     })
             );
             return;
@@ -34,6 +35,7 @@
                     (val = {
                         ...val,
                         errorMessage: (val.errorMessage = 'No file selected'),
+                        showSaveButton: false,
                     })
             );
             return;
@@ -50,6 +52,7 @@
                             ...val,
                             errorMessage: (val.errorMessage =
                                 'No file selected'),
+                            showSaveButton: false,
                         })
                 );
                 return;
@@ -79,6 +82,7 @@
                             cutOptimisationFile: null,
                             errorMessage: (val.errorMessage =
                                 'Invalid file type'),
+                            showSaveButton: false,
                         })
                 );
             }
