@@ -39,10 +39,11 @@ export class CuttingParser implements ICuttingParser {
 
     public parse() {
         if (!this.data) {
-            message('Could not parse data', {
-                type: 'error',
-                title: 'Error parsing data',
-            });
+            // message('Could not parse data', {
+            //     type: 'error',
+            //     title: 'Error parsing data',
+            // });
+            console.error('Could not parse data');
             return;
         }
 
@@ -84,10 +85,11 @@ export class CuttingParser implements ICuttingParser {
                         store.showSaveButton = false;
                         return store;
                     });
-                    await message(errorMessage, {
-                        type: 'error',
-                        title: 'Error extracting profile info',
-                    });
+                    // await message(errorMessage, {
+                    //     type: 'error',
+                    //     title: 'Error extracting profile info',
+                    // });
+                    console.error(errorMessage);
                     return;
                 }
 

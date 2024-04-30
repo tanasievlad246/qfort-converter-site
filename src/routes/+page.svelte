@@ -18,7 +18,6 @@
     import { message } from '@tauri-apps/api/dialog';
     import type { ExtractedAssemblyListData } from '$lib/types';
     import { getCurrentTime } from '$lib/util/getCurrentTime';
-    import { onMount } from 'svelte';
 
     let _cutOptimisationFile: File | null = $store.cutOptimisationFile;
     let _assemblyListFile: File | null = $store.assemblyListFile;
@@ -29,7 +28,6 @@
     };
 
     let reportData: ReportData = {};
-    let showSaveButton = false;
 
     subscribe((val) => {
         _cutOptimisationFile = val.cutOptimisationFile;
@@ -39,7 +37,8 @@
             val.errorMessage &&
             (!val.assemblyListFile || !val.cutOptimisationFile)
         ) {
-            message(val.errorMessage, { title: 'Error!', type: 'error' });
+            // message(val.errorMessage, { title: 'Error!', type: 'error' });
+            console.error(val.errorMessage);
         }
     });
 
