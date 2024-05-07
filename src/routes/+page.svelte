@@ -149,11 +149,7 @@
                 reportData[position].push(ReportBuilder.columns);
 
                 for (const row of ReportBuilder.reportData) {
-                    const partNumbeWithColor = `${row.partNumber}${
-                        row.color === 'Sublimare' || row.color === 'NO_COLOR'
-                            ? ''
-                            : row.color
-                    }`;
+                    const partNumbeWithColor = `${row.partNumber}${row.color === 'NO_COLOR' ? '' : row.color}`;
 
                     if (row.position === position) {
                         reportData[position].push([
