@@ -13,17 +13,15 @@ export function checkFileUploadType(
     let validFileType = false;
 
     for (const key of keys) {
-        if (data[key].v) {
-            const value = data[key].v;
+        const cell = data[key];
 
-            if (type === 'CutOptimisation') {
-                if (value.includes('Cut Optimisation')) {
+        if (cell && typeof cell.v === 'string') {
+            if (data[key].v) {
+                const value = data[key].v;
+
+                if (type === 'CutOptimisation' && value.includes('Cut Optimisation')) {
                     validFileType = true;
-                }
-            }
-
-            if (type === 'AssemblyList') {
-                if (value.includes('Assembly List')) {
+                } else if (type === 'AssemblyList' && value.includes('Assembly List')) {
                     validFileType = true;
                 }
             }

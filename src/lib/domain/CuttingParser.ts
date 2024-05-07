@@ -162,8 +162,10 @@ export class CuttingParser implements ICuttingParser {
             if (match && match[1]) {
                 return `T${match[1]}T${match[1]}`;
             }
-        } else if (input.startsWith('Special 3 Powder Coating')) {
+        } else if (input.startsWith('Special 4 Powder Coating')) {
             return 'Sublimare';
+        } else if (input.startsWith('Special 3 Powder Coating')) {
+            return 'Culoare Speciala';
         }
         return 'NO_COLOR';
     }
