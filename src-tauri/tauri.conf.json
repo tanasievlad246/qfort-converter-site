@@ -70,7 +70,7 @@
     "updater": {
       "active": true,
       "dialog": true,
-      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IHJzaWduIGVuY3J5cHRlZCBzZWNyZXQga2V5ClJXUlRZMEl5RnR0V2dnOTROZ2J5QzQrblRSb0ZMdXRjZlFXMm5vRWVtSEtBMkc2dGxuZ0FBQkFBQUFBQUFBQUFBQUlBQUFBQSt4M0FJVEN5N1NvaHlubkc3NFNSQlliTnpHQTM4QXJiV0VDK2sxMXhnQnBRbVhKK0c2dFkxZ1A4Rm1kUDhqTUxMR0F1TnZPWW4yNjFDQ0JuOEZsbzQrRVlwOVlzVVpPRVdubXpFVS9rT0t3SnY1QVViZVlEa2dzbElWTldia2w2dUNpZGFSYk5Jclk9Cg==",
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IEMzNTgzNzk1MTAwQzFCODAKUldTQUd3d1FsVGRZdzN4TlpiZ0ZzNDh0R0pQb1UrV2FBalBjeHNqY09WeE5GL1ZKbVBrSkZBMy8K",
       "endpoints": [
         "https://api.github.com/repos/tanasievlad246/qfort-converter-site/releases"
       ]
