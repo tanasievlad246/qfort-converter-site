@@ -17,6 +17,7 @@
     import SelectAssemblyList from '$lib/components/SelectAssemblyList.svelte';
     import type { ExtractedAssemblyListData } from '$lib/types';
     import { getCurrentTime } from '$lib/util/getCurrentTime';
+    import { message } from '@tauri-apps/api/dialog';
 
     let _cutOptimisationFile: File | null = $store.cutOptimisationFile;
     let _assemblyListFile: File | null = $store.assemblyListFile;
@@ -32,16 +33,16 @@
         _cutOptimisationFile = val.cutOptimisationFile;
         _assemblyListFile = val.assemblyListFile;
 
-        // if (
-        //     val.errorMessage &&
-        //     (!val.assemblyListFile || !val.cutOptimisationFile)
-        // ) {
-        //     message(val.errorMessage, { title: 'Error!', type: 'error' });
-        //     store.update((val) => {
-        //         val.errorMessage = '';
-        //         return val;
-        //     });
-        // }
+        if (
+            val.errorMessage &&
+            (!val.assemblyListFile || !val.cutOptimisationFile)
+        ) {
+            message(val.errorMessage, { title: 'Error!', type: 'error' });
+            store.update((val) => {
+                val.errorMessage = '';
+                return val;
+            });
+        }
     });
 
     const processAssemblyList = (): ExtractedAssemblyListData | null => {

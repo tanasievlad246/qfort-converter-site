@@ -9,7 +9,7 @@
   },
   "package": {
     "productName": "qfort-converter",
-    "version": "1.0.6"
+    "version": "1.1.0"
   },
   "tauri": {
     "allowlist": {
@@ -68,7 +68,12 @@
       "csp": null
     },
     "updater": {
-      "active": false
+      "active": true,
+      "dialog": true,
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IHJzaWduIGVuY3J5cHRlZCBzZWNyZXQga2V5ClJXUlRZMEl5RnR0V2dnOTROZ2J5QzQrblRSb0ZMdXRjZlFXMm5vRWVtSEtBMkc2dGxuZ0FBQkFBQUFBQUFBQUFBQUlBQUFBQSt4M0FJVEN5N1NvaHlubkc3NFNSQlliTnpHQTM4QXJiV0VDK2sxMXhnQnBRbVhKK0c2dFkxZ1A4Rm1kUDhqTUxMR0F1TnZPWW4yNjFDQ0JuOEZsbzQrRVlwOVlzVVpPRVdubXpFVS9rT0t3SnY1QVViZVlEa2dzbElWTldia2w2dUNpZGFSYk5Jclk9Cg==",
+      "endpoints": [
+        "https://api.github.com/repos/tanasievlad246/qfort-converter-site/releases"
+      ]
     },
     "windows": [
       {
