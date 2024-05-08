@@ -214,7 +214,7 @@
             on:click={() => {
                 reportData = {};
                 processFile();
-            }}>Process</button
+            }}>Process File</button
         >
         {#if processing}
             <div class="loading"></div>
