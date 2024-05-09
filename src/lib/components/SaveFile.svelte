@@ -7,7 +7,7 @@
     export let data: {
         [key: string]: string[][];
     };
-    export let fileName: string = `Report-${new Date().toISOString().split('T')[0]}_${getCurrentTime()}.xlsx`;
+    export let fileName: string = `Raport-simplificat-${new Date().toISOString().split('T')[0]}_${getCurrentTime()}.xlsx`;
 
     const s2ab = (s: string) => {
         const buf = new ArrayBuffer(s.length);
