@@ -18,6 +18,7 @@
     import type { ExtractedAssemblyListData } from '$lib/types';
     import { getCurrentTime } from '$lib/util/getCurrentTime';
     import { message } from '@tauri-apps/api/dialog';
+    import { getVersion } from '@tauri-apps/api/app';
 
     let _cutOptimisationFile: File | null = $store.cutOptimisationFile;
     let _assemblyListFile: File | null = $store.assemblyListFile;
@@ -226,6 +227,12 @@
             />
         {/if}
     </div>
+    {#await getVersion()}
+    {:then version}
+        <p class="text-xs">Version: {version}</p>
+    {:catch error}
+        <p class="text-xs">Version: Unknown</p>
+    {/await}
 </div>
 
 <style>

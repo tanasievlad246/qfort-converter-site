@@ -29,6 +29,10 @@
       "dialog": {
         "all": true,
         "message": true
+      },
+      "app": {
+        "all": true,
+        "show": true
       }
     },
     "bundle": {
@@ -73,7 +77,10 @@
       "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IEMzNTgzNzk1MTAwQzFCODAKUldTQUd3d1FsVGRZdzN4TlpiZ0ZzNDh0R0pQb1UrV2FBalBjeHNqY09WeE5GL1ZKbVBrSkZBMy8K",
       "endpoints": [
         "https://api.github.com/repos/tanasievlad246/qfort-converter-site/releases"
-      ]
+      ],
+      "windows": {
+        "installMode": "basicUi"
+      }
     },
     "windows": [
       {
