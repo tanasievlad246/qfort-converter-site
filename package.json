@@ -29,6 +29,8 @@
     "type": "module",
     "dependencies": {
         "@tauri-apps/api": "^1.5.3",
+        "@tauri-apps/plugin-dialog": "^2.0.0-beta.3",
+        "@tauri-apps/plugin-updater": "^2.0.0-beta.3",
         "@types/xlsx": "^0.0.36",
         "autoprefixer": "^10.4.19",
         "postcss-cli": "^11.0.0",

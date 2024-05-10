@@ -175,11 +175,7 @@
 
             processing = false;
             reportData = reportData;
-            if ($store.errorMessage) {
-                setShowSaveButton(false);
-            } else {
-                setShowSaveButton(true);
-            }
+            setShowSaveButton(true);
         } catch (error: any) {
             store.update((val) => {
                 val.errorMessage = error.message;
