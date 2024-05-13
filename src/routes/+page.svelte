@@ -17,9 +17,12 @@
     import SelectAssemblyList from '$lib/components/SelectAssemblyList.svelte';
     import type { ExtractedAssemblyListData } from '$lib/types';
     import { getCurrentTime } from '$lib/util/getCurrentTime';
-    import { message } from '@tauri-apps/api/dialog';
+    import { message, ask } from '@tauri-apps/api/dialog';
     import { getVersion } from '@tauri-apps/api/app';
-
+    import { checkUpdate as check, installUpdate } from '@tauri-apps/api/updater';
+    import { relaunch } from '@tauri-apps/api/process';
+    import { onMount } from 'svelte';
+ 
     let _cutOptimisationFile: File | null = $store.cutOptimisationFile;
     let _assemblyListFile: File | null = $store.assemblyListFile;
     let processing = false;
@@ -45,6 +48,53 @@
             });
         }
     });
+
+    async function checkForAppUpdates(onUserClick: boolean = false) {
+        try {
+        const update = await check();
+        if (update === null) {
+            await message(
+                'Failed to check for updates.\nPlease try again later.',
+                {
+                    title: 'Error',
+                    type: 'error',
+                    okLabel: 'OK',
+                }
+            );
+            return;
+        } else if (update?.shouldUpdate) {
+            const yes = await ask(
+                `Update to ${update.manifest?.version} is available!\n\nRelease notes: ${update.manifest?.body}`,
+                {
+                    title: 'Update Available',
+                    type: 'info',
+                    okLabel: 'Update',
+                    cancelLabel: 'Cancel',
+                }
+            );
+            if (yes) {
+                await installUpdate();
+                // Restart the app after the update is installed by calling the Tauri command that handles restart for your app
+                // It is good practice to shut down any background processes gracefully before restarting
+                // As an alternative, you could ask the user to restart the app manually
+                await relaunch();
+            }
+        } else if (onUserClick) {
+            await message('You are on the latest version. Stay awesome!', {
+                title: 'No Update Available',
+                type: 'info',
+                okLabel: 'OK',
+            });
+        }
+    } catch (error: any)  {
+        store.update(val => {
+            return {
+                ...val,
+                errorMessage: error.message
+            }
+        })
+    }
+    }
 
     const processAssemblyList = (): ExtractedAssemblyListData | null => {
         try {
@@ -196,6 +246,10 @@
             return val;
         });
     };
+
+    onMount(() => {
+        checkForAppUpdates();
+    })
 </script>
 
 <div class="flex flex-col justify-center h-screen items-center gap-6">
@@ -223,8 +277,7 @@
             />
         {/if}
     </div>
-    {#await getVersion()}
-    {:then version}
+    {#await getVersion() then version}
         <p class="text-xs">Version: {version}</p>
     {:catch error}
         <p class="text-xs">Version: Unknown</p>

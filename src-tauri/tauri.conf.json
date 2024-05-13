@@ -26,6 +26,11 @@
         "renameFile": true,
         "exists": true
       },
+      "http": {
+        "all": true,
+        "request": true,
+        "scope": []
+      },
       "dialog": {
         "all": true,
         "message": true
@@ -75,7 +80,10 @@
       "active": true,
       "dialog": true,
       "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IEMzNTgzNzk1MTAwQzFCODAKUldTQUd3d1FsVGRZdzN4TlpiZ0ZzNDh0R0pQb1UrV2FBalBjeHNqY09WeE5GL1ZKbVBrSkZBMy8K",
-      "endpoints": [],
+      "endpoints": [
+        "https://releases.myapp.com/{{target}}/{{arch}}/{{current_version}}",
+        "https://gist.githubusercontent.com/tanasievlad246/69ab9fe0af4da0418c7abf932d59ec28/raw"
+      ],
       "windows": {
         "installMode": "basicUi"
       }
