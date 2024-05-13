@@ -68,10 +68,10 @@ class ReportBuilder {
 
                     if (!acc[position]) {
                         acc[position] = {
-                            length: (
+                            length: ((
                                 totalCutLengthCurrentPosition +
                                 totalWastageForCut
-                            ).toFixed(1),
+                            ) / 1000).toFixed(1), // Divide by 1000 to convert to meters
                             color,
                             partNumber,
                             position,
