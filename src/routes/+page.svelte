@@ -276,7 +276,7 @@
         {#if $store.showSaveButton}
             <SaveFile
                 data={reportData ? reportData : {}}
-                fileName={`${_cutOptimisationFile?.name.split('.')[0]}_${new Date().toISOString().split('T')[0]}_${getCurrentTime()}_report.xlsx`}
+                fileName={`Raport ${$store.projectName}_${$store.projectDate}.xlsx`}
             />
         {/if}
     </div>

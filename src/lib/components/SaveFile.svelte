@@ -1,13 +1,12 @@
 <script lang="ts">
     import { resetStoreValues } from '$lib/store';
-    import { getCurrentTime } from '$lib/util/getCurrentTime';
-    import {  } from 'svelte';
     import * as XLSX from 'xlsx';
+    import { store } from '$lib/store';
 
     export let data: {
         [key: string]: string[][];
     };
-    export let fileName: string = `Raport-simplificat-${new Date().toISOString().split('T')[0]}_${getCurrentTime()}.xlsx`;
+    export let fileName: string = `Raport-${$store.projectDate}-${$store.projectName}.xlsx`;
 
     const s2ab = (s: string) => {
         const buf = new ArrayBuffer(s.length);

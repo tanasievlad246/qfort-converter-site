@@ -12,6 +12,8 @@ type WorkSheetObject =
       };
 
 interface FileStore {
+    projectName: string,
+    projectDate: string,
     cutOptimisationFile: File | null;
     cutOptimisationData: WorkSheetObject | null;
     assemblyListFile: File | null;
@@ -22,6 +24,8 @@ interface FileStore {
 }
 
 const store = writable<FileStore>({
+    projectName: '',
+    projectDate: '',
     cutOptimisationFile: null,
     cutOptimisationData: null,
     assemblyListFile: null,
@@ -33,6 +37,8 @@ const store = writable<FileStore>({
 
 const resetStoreValues = () => {
     store.update((store) => {
+        store.projectDate = '',
+        store.projectName = '',
         store.cutOptimisationFile = null;
         store.cutOptimisationData = null;
         store.assemblyListFile = null;

@@ -70,6 +70,8 @@
                         ...state,
                         cutOptimisationFile: _file,
                         cutOptimisationData: data,
+                        projectDate: data['N2'].v || '',
+                        projectName: data['N3'].v || '',
                         errorMessage: '',
                     };
                 });
@@ -80,6 +82,8 @@
                             ...val,
                             cutOptimisationData: null,
                             cutOptimisationFile: null,
+                            projectDate: '',
+                            projectName: '',
                             errorMessage: (val.errorMessage =
                                 'Invalid file type'),
                             showSaveButton: false,
