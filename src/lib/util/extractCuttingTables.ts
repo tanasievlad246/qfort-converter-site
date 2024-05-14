@@ -175,7 +175,7 @@ export const extractPartsNumbers = (data: CuttingTable): PartsNumbersData => {
                     foundNumber = false;
                 } else if (foundNumber) {
                     // A regex pattern to test a string that should be a number of any length NOT separated by any character
-                    const numberPattern = /^\d{6}$|^[A-Za-z]{7}\d{4}$/;
+                    const numberPattern = /^\d{6}$|^[A-Za-z]{7}\d{4}$|[zZ]{1}\d{3}/;
 
                     if (numberPattern.test(obj.v)) {
                         const _pos = pos.replace('Position:', '').trim();
