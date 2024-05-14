@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { SHEET_NAME } from '$lib/util/consts';
+    import { DATE_LOCATION_CELL, PROJECT_NAME_LOCATION_CELL, SHEET_NAME } from '$lib/util/consts';
     import * as XLSX from 'xlsx';
     import { store, resetStoreValues } from '$lib/store';
     import { checkFileUploadType } from '$lib/util/checkFileUpload';
@@ -70,8 +70,8 @@
                         ...state,
                         cutOptimisationFile: _file,
                         cutOptimisationData: data,
-                        projectDate: data['N2'].v || '',
-                        projectName: data['N3'].v || '',
+                        projectDate: data[DATE_LOCATION_CELL].v || '',
+                        projectName: data[PROJECT_NAME_LOCATION_CELL].v || '',
                         errorMessage: '',
                     };
                 });
