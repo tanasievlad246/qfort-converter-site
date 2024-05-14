@@ -66,85 +66,87 @@ class ReportBuilder {
                         wastage
                     );
 
-                    if (!acc[position]) {
-                        acc[position] = {
-                            length: ((
-                                totalCutLengthCurrentPosition +
-                                totalWastageForCut
-                            ) / 1000).toFixed(1), // Divide by 1000 to convert to meters
-                            color,
-                            partNumber,
-                            position,
-                        };
-                    }
+                    const _length = ((
+                        totalCutLengthCurrentPosition +
+                        totalWastageForCut
+                    ) / 1000);
 
-                    return acc;
-                }, {});
+            if (!acc[position]) {
+                acc[position] = {
+                    length: (_length / assemblyListData.partsQty[position].quantity).toFixed(1), // Divide by 1000 to convert to meters
+                    color,
+                    partNumber,
+                    position,
+                };
+            }
 
-            rows.push(row);
-        }
+            return acc;
+        }, { });
+
+        rows.push(row);
+    }
 
         this.flattenReportData(rows);
-        this.createAccessoriesRows(assemblyListData);
+this.createAccessoriesRows(assemblyListData);
     }
 
     private createAccessoriesRows(
-        assemblyListData: ExtractedAssemblyListData
-    ): void {
-        const keys = Object.keys(assemblyListData.partsQty);
-        this.accessoriesData = [];
+    assemblyListData: ExtractedAssemblyListData
+): void {
+    const keys = Object.keys(assemblyListData.partsQty);
+    this.accessoriesData = [];
 
-        for (const key of keys) {
-            for (
-                let i = 0;
-                i < assemblyListData.partsQty[key].data.length;
-                i++
-            ) {
-                const partNumber = assemblyListData.partsNumbers[key][i];
-                const qty =
-                    assemblyListData.partsQty[key].data[i].split(' ')[0];
+    for(const key of keys) {
+        for (
+            let i = 0;
+            i < assemblyListData.partsQty[key].data.length;
+            i++
+        ) {
+            const partNumber = assemblyListData.partsNumbers[key][i];
+            const qty =
+                assemblyListData.partsQty[key].data[i].split(' ')[0];
 
-                this.accessoriesData.push({
-                    partNumber,
-                    qty: parseFloat(qty),
-                    position: key,
-                });
-            }
+            this.accessoriesData.push({
+                partNumber,
+                qty: parseFloat(qty),
+                position: key,
+            });
         }
     }
+}
 
-    public getListOfPositions(): Set<string> {
-        return this.cuttingProcesses.reduce(
-            (acc: Set<string>, el: CuttingProcess) => {
-                const cuts = el.getCuts();
-                for (const cut of cuts) {
-                    acc.add(cut.getPosition());
-                }
-                return acc;
-            },
-            new Set<string>()
-        );
-    }
+    public getListOfPositions(): Set < string > {
+    return this.cuttingProcesses.reduce(
+        (acc: Set<string>, el: CuttingProcess) => {
+            const cuts = el.getCuts();
+            for (const cut of cuts) {
+                acc.add(cut.getPosition());
+            }
+            return acc;
+        },
+        new Set<string>()
+    );
+}
 
     private flattenReportData(rows: ReportCuts[]): void {
-        this.reportData = rows.reduce(
-            (acc: CuttingProcessResult[], el: ReportCuts) => {
-                const keys = Object.keys(el);
-                for (const key of keys) {
-                    acc.push(el[key]);
-                }
-                return acc;
-            },
-            []
-        );
-    }
+    this.reportData = rows.reduce(
+        (acc: CuttingProcessResult[], el: ReportCuts) => {
+            const keys = Object.keys(el);
+            for (const key of keys) {
+                acc.push(el[key]);
+            }
+            return acc;
+        },
+        []
+    );
+}
 
     private calculateTotalProjectLength(): void {
-        this.totalProjectLength = this.cuttingProcesses.reduce(
-            (acc: number, el: CuttingProcess) => acc + el.getTotalLength(),
-            0
-        );
-    }
+    this.totalProjectLength = this.cuttingProcesses.reduce(
+        (acc: number, el: CuttingProcess) => acc + el.getTotalLength(),
+        0
+    );
+}
 
     /**
      *
@@ -152,19 +154,19 @@ class ReportBuilder {
      * @param whole value for total length of all the cuts
      */
     private calculatePercentage(part: number, whole: number): number {
-        if (part > this.totalProjectLength) {
-            throw new Error('Length is greater than the total project length');
-        }
-
-        return parseFloat(((part * 100) / whole).toFixed(2));
+    if (part > this.totalProjectLength) {
+        throw new Error('Length is greater than the total project length');
     }
+
+    return parseFloat(((part * 100) / whole).toFixed(2));
+}
 
     private calculateFromPercentage(
-        percentage: number,
-        wastage: number
-    ): number {
-        return parseFloat(((percentage / 100) * wastage).toFixed(2));
-    }
+    percentage: number,
+    wastage: number
+): number {
+    return parseFloat(((percentage / 100) * wastage).toFixed(2));
+}
 }
 
 export default new ReportBuilder();
