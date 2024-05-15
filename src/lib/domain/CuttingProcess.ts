@@ -1,5 +1,5 @@
 import { ProfileCut } from './ProfileCut';
-
+import { round, sum } from '$lib/util/math';
 export interface CuttingProcessActions {
     cut(): void;
     calcTotalLength(qty: number, length: number): void;
@@ -56,12 +56,13 @@ export class CuttingProcess implements CuttingProcessActions {
 
     private calcTotalCutLengthPerPosition(): void {
         for (const cut of this.cuts) {
+            const result = round((cut.getLength() * cut.getQty()), 1, 3);
             if (!this.totalCutLengthPerPosition[cut.getPosition()]) {
                 this.totalCutLengthPerPosition[cut.getPosition()] =
-                    cut.getLength() * cut.getQty();
+                    result;
             } else {
                 this.totalCutLengthPerPosition[cut.getPosition()] +=
-                    cut.getLength() * cut.getQty();
+                    result;
             }
         }
     }
@@ -72,12 +73,12 @@ export class CuttingProcess implements CuttingProcessActions {
 
     private calcTotalLengthCutFromInstructions(): number {
         return this.cuttingInstructions.reduce((acc, el) => {
-            return acc + el.qty * el.length;
+            return sum([acc, (el.qty * el.length)]);
         }, 0);
     }
 
     calcTotalLength(qty: number, length: number): number {
-        return length * qty;
+        return round((length * qty), 1, 3);
     }
 
     cut(): void {
@@ -97,9 +98,9 @@ export class CuttingProcess implements CuttingProcessActions {
     private calcWastage(): void {
         let totalCutLength = 0;
         for (const cut of this.cuts) {
-            totalCutLength += cut.getLength() * cut.getQty();
+            totalCutLength += round((cut.getLength() * cut.getQty()), 1, 3);
         }
-        this.wastage += this.totalLength - totalCutLength;
+        this.wastage += round((this.totalLength - totalCutLength), 1, 3);
     }
 
     colorCodeCut(profileCut: ProfileCut): void {
