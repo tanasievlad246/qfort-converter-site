@@ -220,7 +220,7 @@
                     if (accessory.position === position) {
                         reportData[position].push([
                             accessory.partNumber,
-                            accessory.qty.toString(),
+                            accessory.qty.toString().replace('.', ','),
                         ]);
                     }
                 }
