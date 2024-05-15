@@ -6,19 +6,19 @@ export const round = (n: number, k: number, resolution: number): number => {
 };
 
 export const percent = (value: number, percentage: number): number =>
-    round((value * percentage / 100), 1, 3);
+    round((value * percentage / 100), 0.5, 3);
 
 export const toPercent = (value: number, whole: number): number => (
-    round(((value * 100) / whole), 1, 3)
+    round(((value * 100) / whole), 0.5, 3)
 );
 
 export const divideSeries = (numbers: []): number => (
-    numbers.reduce((a, b) => round((a / b), 1, 3), 0)
+    numbers.reduce((a, b) => round((a / b), 0.5, 3), 0)
 );
 
 export const divide = (a: number, b: number): number => (
-    round((a / b), 1, 3)
+    round((a / b), 0.5, 3)
 );
 
 export const sum = (numbers: number[]): number =>
-    numbers.reduce((a, b) => round((a + b), 1, 3), 0);
+    numbers.reduce((a, b) => round((a + b), 0.5, 3), 0);

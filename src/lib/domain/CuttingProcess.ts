@@ -56,7 +56,7 @@ export class CuttingProcess implements CuttingProcessActions {
 
     private calcTotalCutLengthPerPosition(): void {
         for (const cut of this.cuts) {
-            const result = round((cut.getLength() * cut.getQty()), 1, 3);
+            const result = round((cut.getLength() * cut.getQty()), 0.5, 3);
             if (!this.totalCutLengthPerPosition[cut.getPosition()]) {
                 this.totalCutLengthPerPosition[cut.getPosition()] =
                     result;
@@ -78,7 +78,7 @@ export class CuttingProcess implements CuttingProcessActions {
     }
 
     calcTotalLength(qty: number, length: number): number {
-        return round((length * qty), 1, 3);
+        return round((length * qty), 0.5, 3);
     }
 
     cut(): void {
@@ -98,9 +98,9 @@ export class CuttingProcess implements CuttingProcessActions {
     private calcWastage(): void {
         let totalCutLength = 0;
         for (const cut of this.cuts) {
-            totalCutLength += round((cut.getLength() * cut.getQty()), 1, 3);
+            totalCutLength += round((cut.getLength() * cut.getQty()), 0.5, 3);
         }
-        this.wastage += round((this.totalLength - totalCutLength), 1, 3);
+        this.wastage += round((this.totalLength - totalCutLength), 0.5, 3);
     }
 
     colorCodeCut(profileCut: ProfileCut): void {

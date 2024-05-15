@@ -70,13 +70,13 @@ class ReportBuilder {
                     const _length = round(
                         (round(
                             sum([totalCutLengthCurrentPosition, totalWastageForCut]),
-                            1,
+                            0.5,
                             3
-                        ) / 1000), 1, 3); // Divide by 1000 to convert to meters
+                        ) / 1000), 0.5, 3); // Divide by 1000 to convert to meters
 
                     if (!acc[position]) {
                         acc[position] = {
-                            length: divide(_length, assemblyListData.partsQty[position].quantity).toFixed(1),
+                            length: divide(_length, assemblyListData.partsQty[position].quantity).toFixed(1).replace('.', ','),
                             color,
                             partNumber,
                             position,
