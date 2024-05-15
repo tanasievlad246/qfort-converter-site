@@ -76,7 +76,7 @@ class ReportBuilder {
 
                     if (!acc[position]) {
                         acc[position] = {
-                            length: divide(_length, assemblyListData.partsQty[position].quantity).toFixed(1).replace('.', ','),
+                            length: divide(_length, assemblyListData.partsQty[position].quantity).toFixed(3).replace('.', ','),
                             color,
                             partNumber,
                             position,
