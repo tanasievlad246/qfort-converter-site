@@ -1,3 +1,5 @@
+import { store } from "$lib/store";
+
 export interface CuttingTable {
     [key: string]: {
         [key: string]: {
@@ -205,9 +207,11 @@ export const extractCuttingTables = (
     delete data['!merges'];
     delete data['!ref'];
 
+    console.log(data);
+
     const keys = Object.keys(data);
     const result: CuttingTable | CuttingRow = {};
-    let currentCuttingName = '';
+    let currentCuttingName: string | null = null;
 
     if (type === 'CutOptimisation') {
         const grpByRows = groupByRows(data);
@@ -222,8 +226,11 @@ export const extractCuttingTables = (
             const regex = new RegExp(/^Position: \d{3}$/);
 
             if (regex.test(value)) {
-                currentCuttingName = value;
+                console.log('here');
+                currentCuttingName = currentCuttingName === null ? value : currentCuttingName;
+                console.log(currentCuttingName);
             }
+
 
             if (currentCuttingName) {
                 if (!result[currentCuttingName]) {
@@ -233,8 +240,15 @@ export const extractCuttingTables = (
                 }
             }
         }
-    }
 
+        if (currentCuttingName === null) {
+            store.update((store) => {
+                store.errorMessage = 'Nu sa gasit pozitie in Assembly List';
+                store.showSaveButton = false;
+                return store;
+            });
+        }
+    }
     return result;
 };
 

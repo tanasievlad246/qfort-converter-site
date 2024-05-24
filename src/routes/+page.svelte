@@ -16,7 +16,6 @@
     import { subscribe, store } from '$lib/store';
     import SelectAssemblyList from '$lib/components/SelectAssemblyList.svelte';
     import type { ExtractedAssemblyListData } from '$lib/types';
-    import { getCurrentTime } from '$lib/util/getCurrentTime';
     import { message, ask } from '@tauri-apps/api/dialog';
     import { getVersion } from '@tauri-apps/api/app';
     import {
@@ -40,10 +39,7 @@
         _cutOptimisationFile = val.cutOptimisationFile;
         _assemblyListFile = val.assemblyListFile;
 
-        if (
-            val.errorMessage &&
-            (!val.assemblyListFile || !val.cutOptimisationFile)
-        ) {
+        if (val.errorMessage) {
             message(val.errorMessage, { title: 'Error!', type: 'error' });
             store.update((val) => {
                 val.errorMessage = '';
@@ -227,7 +223,7 @@
             }
 
             processing = false;
-            reportData = reportData;
+            console.log(reportData);
             setShowSaveButton(true);
         } catch (error: any) {
             store.update((val) => {
