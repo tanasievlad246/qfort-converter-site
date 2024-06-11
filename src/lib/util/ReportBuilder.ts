@@ -36,66 +36,61 @@ class ReportBuilder {
         this.calculateTotalProjectLength();
         const rows: ReportCuts[] = [];
 
-        try {
+        for (const process of cuttingProcesses) {
+            let wastage = process.getWastage();
 
-            for (const process of cuttingProcesses) {
-                let wastage = process.getWastage();
+            /**
+             * Get total length of all the cuts from the cutting instructions
+             * Calculate total length per position
+             * Find out percentage for each position out of the total length
+             * Calculate wastage for each position
+             * Add the percent of wastage to the total of the position
+             */
+            const totalLengthFromInstructions =
+                process.getTotalLengthCutFromInstructions();
 
-                /**
-                 * Get total length of all the cuts from the cutting instructions
-                 * Calculate total length per position
-                 * Find out percentage for each position out of the total length
-                 * Calculate wastage for each position
-                 * Add the percent of wastage to the total of the position
-                 */
-                const totalLengthFromInstructions =
-                    process.getTotalLengthCutFromInstructions();
+            const row = process
+                .getCuts()
+                .reduce((acc: ReportCuts, el: ProfileCut) => {
+                    const position = el.getPosition();
+                    const color = el.getColor();
+                    const partNumber = process.getPartNumber();
 
-                const row = process
-                    .getCuts()
-                    .reduce((acc: ReportCuts, el: ProfileCut) => {
-                        const position = el.getPosition();
-                        const color = el.getColor();
-                        const partNumber = process.getPartNumber();
+                    const totalCutLengthCurrentPosition =
+                        process.getCutLengthPerPosition(position);
+                    const percentage = this.calculatePercentage(
+                        totalCutLengthCurrentPosition,
+                        totalLengthFromInstructions
+                    );
+                    const totalWastageForCut = this.calculateFromPercentage(
+                        percentage,
+                        wastage
+                    );
 
-                        const totalCutLengthCurrentPosition =
-                            process.getCutLengthPerPosition(position);
-                        const percentage = this.calculatePercentage(
-                            totalCutLengthCurrentPosition,
-                            totalLengthFromInstructions
-                        );
-                        const totalWastageForCut = this.calculateFromPercentage(
-                            percentage,
-                            wastage
-                        );
+                    const _length = round(
+                        (round(
+                            sum([totalCutLengthCurrentPosition, totalWastageForCut]),
+                            0.5,
+                            3
+                        ) / 1000), 0.5, 3); // Divide by 1000 to convert to meters
 
-                        const _length = round(
-                            (round(
-                                sum([totalCutLengthCurrentPosition, totalWastageForCut]),
-                                0.5,
-                                3
-                            ) / 1000), 0.5, 3); // Divide by 1000 to convert to meters
+                    if (!acc[position]) {
+                        acc[position] = {
+                            length: divide(_length, assemblyListData.partsQty[position].quantity).toFixed(3).replace('.', ','),
+                            color,
+                            partNumber,
+                            position,
+                        };
+                    }
 
-                        if (!acc[position]) {
-                            acc[position] = {
-                                length: divide(_length, assemblyListData.partsQty[position].quantity).toFixed(3).replace('.', ','),
-                                color,
-                                partNumber,
-                                position,
-                            };
-                        }
+                    return acc;
+                }, {});
 
-                        return acc;
-                    }, {});
-
-                rows.push(row);
-            }
-
-            this.flattenReportData(rows);
-            this.createAccessoriesRows(assemblyListData);
-        } catch (e) {
-            console.error('reportBuilder', e);
+            rows.push(row);
         }
+
+        this.flattenReportData(rows);
+        this.createAccessoriesRows(assemblyListData);
     }
 
     private createAccessoriesRows(

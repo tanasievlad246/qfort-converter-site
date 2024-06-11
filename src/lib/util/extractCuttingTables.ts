@@ -221,10 +221,10 @@ export const extractCuttingTables = (
         for (const key of keys) {
             const value = data[key].v;
 
-            const regex = new RegExp(/^Position: \d{3}$/);
+            const regex = new RegExp(/^Position:\s\d{3}$/);
 
-            if (regex.test(value)) {
-                currentCuttingName = currentCuttingName === null ? value : currentCuttingName;
+            if (regex.test(value) && currentCuttingName !== value) {
+                currentCuttingName = value;
             }
 
 

@@ -125,7 +125,6 @@
                 positionQty,
             };
         } catch (error: any) {
-            console.log('assembly list error', error.message);
             store.update((val) => {
                 val.errorMessage = error.message;
                 val.showSaveButton = false;
@@ -156,7 +155,6 @@
 
             return cuttingTables;
         } catch (error: any) {
-            console.log('cutting list error', error);
             store.update((val) => {
                 val.errorMessage = error.message;
                 val.showSaveButton = false;
@@ -218,7 +216,7 @@
                     if (accessory.position === position) {
                         reportData[position].push([
                             accessory.partNumber,
-                            accessory.qty.toString().replace('.', ','),
+                            accessory.qty.toString(),
                         ]);
                     }
                 }
@@ -227,7 +225,6 @@
             processing = false;
             setShowSaveButton(true);
         } catch (error: any) {
-            console.log('processFile', error);
             store.update((val) => {
                 val.errorMessage = error.message;
                 val.showSaveButton = false;
