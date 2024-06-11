@@ -125,6 +125,7 @@
                 positionQty,
             };
         } catch (error: any) {
+            console.log('assembly list error', error.message);
             store.update((val) => {
                 val.errorMessage = error.message;
                 val.showSaveButton = false;
@@ -155,6 +156,7 @@
 
             return cuttingTables;
         } catch (error: any) {
+            console.log('cutting list error', error);
             store.update((val) => {
                 val.errorMessage = error.message;
                 val.showSaveButton = false;
@@ -223,9 +225,9 @@
             }
 
             processing = false;
-            console.log(reportData);
             setShowSaveButton(true);
         } catch (error: any) {
+            console.log('processFile', error);
             store.update((val) => {
                 val.errorMessage = error.message;
                 val.showSaveButton = false;

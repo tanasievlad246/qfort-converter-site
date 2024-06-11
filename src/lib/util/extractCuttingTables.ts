@@ -207,8 +207,6 @@ export const extractCuttingTables = (
     delete data['!merges'];
     delete data['!ref'];
 
-    console.log(data);
-
     const keys = Object.keys(data);
     const result: CuttingTable | CuttingRow = {};
     let currentCuttingName: string | null = null;
@@ -226,9 +224,7 @@ export const extractCuttingTables = (
             const regex = new RegExp(/^Position: \d{3}$/);
 
             if (regex.test(value)) {
-                console.log('here');
                 currentCuttingName = currentCuttingName === null ? value : currentCuttingName;
-                console.log(currentCuttingName);
             }
 
 
