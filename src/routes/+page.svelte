@@ -254,8 +254,8 @@
     <img src="/logo.svg" alt="logo" class="w-48" />
     <p class="font-bold text-xl">Cut Optimisation & Assembly List Aggregator</p>
     <div class="flex flex-row gap-4">
-        <SelectCutOptimisation />
         <SelectAssemblyList />
+        <SelectCutOptimisation />
     </div>
     <div class="flex flex-row gap-4">
         <button

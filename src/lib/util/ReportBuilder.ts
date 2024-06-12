@@ -26,7 +26,7 @@ class ReportBuilder {
 
     public reportData: CuttingProcessResult[] = [];
     public accessoriesData: AccessoriesData[] = [];
-    public columns: string[] = ['Cod', 'Cant.'];
+    public columns: string[] = ['Cod articol', 'Cant.'];
 
     public buildReport(
         cuttingProcesses: CuttingProcess[],
